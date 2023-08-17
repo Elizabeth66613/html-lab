@@ -73,5 +73,6 @@
 ?>
 			<p><small>© HTML, CSS, and JS Blocks Inc.</small></p>
 		</footer>
+        <script src="js/gallery.js" ></script>
 	</body>
 </html>

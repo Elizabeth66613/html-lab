@@ -7,10 +7,11 @@ html {
 	font-size: 10px;
 }
 
+/* STEP 1a: We need to allow the page BODY element to grow and shrink a bit more - change the below to a min-width of 640px and a max-width of 1280px */
 body {
 	margin: 0 auto;
-	min-width: 768px;
-	max-width: 1024px;
+	min-width: 640px;
+	max-width: 1280px;
 }
 
 header {
@@ -34,62 +35,41 @@ header h2 {
 	text-transform: uppercase;
 }
 
-/* STEP 3a: Put colored borders around the NAV, UL, LI and A elements inside the HEADER */
-header nav {
-	
-}
-
-/* STEP 6: Remove the margin on the bottom of the UL below (set to 0) */
 header nav ul {
-	margin-bottom: 0;
 	padding-left: 0;
+	margin-bottom: 0;
 	list-style-type: none;
-	
 }
 
 header nav li {
-
 	display: inline-block;
-	
 }
 
-/* STEP 8: Set all A elements (links) to display: block in the below rule */
 header nav a {
-	
 	display: block;
 }
 
-/* STEP 3b: Position the parent LI to 'relative' so we can position the 2nd-level UL for drop menus */
 header nav ul li {
-	
 	position: relative;
 }
 
-/* STEP 4b: Build a rule below to position the 2nd-level UL elements 'absolute', then hide them off the page with left: -9999px */
 header nav ul ul {
 	position: absolute;
-	padding-left: -9999px;
+	left: -9999px;
 	background-color: white;
 	width: 15em;
 	z-index: 1;
-	
+	border: 3px solid black;
 }
-/* STEP 7: Set a background-color of 'white' to the above 2nd-level UL */
-/* STEP 10a: In the above rule, set a fixed width of 15em for the 2nd-level UL, set the z-index to 1 so that it covers the image of the blocks on the blocks pages, and set a border of 3px solid black around it */
-/* STEP 10b: Get rid of (or comment out) all the colored borders that we applied to 'see' the box-model (you'll have to look around for them), and you are all done! */
 
-/* STEP 4a: Stack the 2nd-level LI element vertically (overriding the earlier LI rule with 'inline-block') by setting them to display: block */
 header nav ul ul li {
 	display: block;
 }
 
-/* STEP 5: Build a rule to put the 2nd-level UL back to 'left: auto' if the parent LI is hovered over (:hover) - you might need to refer to this week's Lesson files for this fancy selector - upload this CSS and test it by hovering over the 'About' link */
-header nav ul ul li:hover {
-	left: auto;
+header nav li:hover ul {
+		left: auto;
 }
 
-/* STEP 9: Style the links - LVFHA */
-/* STEP 9a: Set the unvisited A styles - 0.5em padding, no underlines, white background-color, and black text color */
 header nav a:link {
 	padding: 0.5em;
 	text-decoration: none;
@@ -97,41 +77,36 @@ header nav a:link {
 	color: black;
 }
 
-/* STEP 9b: Set the visited styles - color: grey */
 header nav a:visited {
-	color: gray;
+	color: grey;
 }
 
-/* STEP 9c: Set the focus styles - background-color: orange */
 header nav a:focus {
 	background-color: orange;
 }
 
-/* STEP 9d: Set the hover styles - background-color: grey, and color: white */
 header nav a:hover {
-	background-color: gray;
+	background-color: grey;
 	color: white;
 }
 
-/* STEP 9e: Set the active styles - color: red and background-color: yellow */
 header nav a:active {
-	color: red;
 	background-color: yellow;
+	color: red;
 }
-
 
 main {
 	font-size: 1.8rem;
 	line-height: 1.5;
 	text-align: justify;
 	background-color: white;
-	/* Arrange the SECTION and the ASIDE elements side-by-side in columns */
 	display: flex;
-	flex-direction: row;
+	/* STEP 1b: We need to design the layout so that we start with assuming the visitor is using a small screen (mobile-first) - as such, we will change flex direction for the children of the MAIN element to display in a column, rather than a row */
+	flex-direction: column;
 }
 
 main section {
-	width: 60%;
+	/* STEP 2a: Change the SECTION element inside the MAIN to stretch across the whole page, by removing the width setting - it will then default to full-width */
 	padding: 2em;
 }
 
@@ -140,9 +115,33 @@ main section time {
 }
 
 main aside {
-	width: 40%;
-	padding: 2em 2em 2em 0;
+	/* STEP 2b: We will also remove the width setting for the ASIDE element so that it also stretches across the screen all the way */
+	
+
+	/* STEP 2c: Add padding to all sides of the ASIDE (left side is currently set to zero) */
+	padding: 2em 2em 2em 2em;
 }
+
+/* STEP 3: Add a media query to restore the 2-column layout we originally had when the screen is at least 960 pixels */
+@media (min-width: 960px) and (orientation: landscape) {
+	main {
+		flex-direction: row;
+	}
+
+	main section {
+		flex-basis: 60%;
+	}
+	
+	main aside {
+		width: 40%;
+		padding-left: 0%;
+	}
+  }
+/* STEP 4: INSIDE the newly-created @media rule, add a rule for the MAIN element that restores the flex-box to flex-direction: row */
+
+/* STEP 5a: Continue inside the above @media rule, to add a rule for MAIN SECTION that sets the flex-basis to 60% */
+
+/* STEP 5b: Add another rule for MAIN ASIDE, that restores the width to 40%, and the padding-left to 0 - try it out - your layout is now RESPONSIVE (to some degree)! What other parts of the layout should change to adapt to the user's screen size? */
 
 aside img[alt$="block"] {
 	position: relative;
@@ -198,4 +197,21 @@ section > p {
 
 h1, h2, footer {
 	color: white;
+}
+
+/* Styles to arrange image gallery links horizontally with no list markers */
+#blockGallery {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#blockGallery li {
+	display: inline-block;
+	margin-right: 1rem;
+}
+
+#blockCaption {
+	text-indent: 0;
+	text-align: left;
 }
